@@ -1,7 +1,7 @@
 # Implementation Plan
 
   - [x] Use golang;
-  - [ ] Continue [tutorial](https://golang.org/doc/tutorial/create-module);
+  - [ ] Continue [tutorial](https://golang.org/doc/tutorial/handle-errors);
   - [ ] Use encrypted [sqlite
         database](https://github.com/mutecomm/go-sqlcipher);
   - [ ] Use [GORM](https://gorm.io/) (hopefully with
