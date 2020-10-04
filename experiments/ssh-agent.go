@@ -1,7 +1,6 @@
 package main
 
 import (
-    "golang.org/x/crypto/ssh"
     "golang.org/x/crypto/ssh/agent"
     "log"
     "net"
@@ -17,21 +16,11 @@ func main() {
     }
 
     agentClient := agent.NewClient(conn)
-    config := &ssh.ClientConfig{
-        User: "thom",
-        Auth: []ssh.AuthMethod{
-            // Use a callback rather than PublicKeys so we only
-            // consult the
-            // agent once the remote server wants it.
-            ssh.PublicKeysCallback(agentClient.Signers),
-        },
-        HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-    }
-
-    sshc, err := ssh.Dial("tcp", "localhost:22", config)
+    keys, err := agentClient.List()
     if err != nil {
-        log.Fatalf("Failed to connect: %v", err)
+        log.Fatalf("Failed to retrieve SSH public keys: %v", err)
     }
-    // Use sshc...
-    sshc.Close()
+    for _, key := range keys {
+        log.Printf("SSH key: %s", key.Comment)
+    }
 }
