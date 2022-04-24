@@ -17,7 +17,7 @@ class PlutusCommandQuarkusTest {
   @Launch({})
   void testRunWithoutArguments(final LaunchResult launchResult) {
     assertEquals(0, launchResult.exitCode());
-    assertEquals(109, PLUTUS_LOG.getLogs().size());
+    assertEquals(1, PLUTUS_LOG.getLogs().size());
     assertEquals("Processed 18 transactions", PLUTUS_LOG.getInfoLogs().get(0));
   }
 

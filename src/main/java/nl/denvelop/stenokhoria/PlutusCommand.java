@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import nl.denvelop.stenokhoria.parser.Mt940Parser;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.IDefaultValueProvider;
 import picocli.CommandLine.Model.ArgSpec;
@@ -35,42 +36,10 @@ public class PlutusCommand implements Runnable {
             return;
         }
 
-        final SwiftMessage swiftMessage;
-        try {
-            swiftMessage = MT940.parse(inputFile).getSwiftMessage();
-        } catch (final IOException ioe) {
-            log.error(ioe.getMessage(), ioe);
-            return;
-        }
+        val parser = new Mt940Parser(inputFile);
+        val numProcessed = parser.parse();
 
-        var numProcessed = process(swiftMessage.getBlock4());
-        for (var i = 0; i < swiftMessage.getUnparsedTextsSize(); ++i) {
-            numProcessed += process(swiftMessage.getUnparsedTexts().getTextAsMessage(i).getBlock4());
-        }
         log.info("Processed %d transactions".formatted(numProcessed));
-    }
-
-    private int process(final SwiftBlock4 block4) {
-        val loop = block4.getSubBlock(
-            block4.getTagByNumber(60), block4.getTagByNumber(62));
-        var numProcessed = 0;
-        for (var i = 0; i < loop.size(); ++i) {
-            val tag = loop.getTag(i);
-            if (tag.getNameAsInt() == 61) {
-                val field = (Field61) tag.asField();
-                log.debug("-----");
-                log.debug("amount = %s".formatted(field.getComponent(AMOUNT)));
-                log.debug("transaction type = %s".formatted(field.getComponent(TRANSACTION_TYPE)));
-                log.debug("ID code = %s".formatted(field.getComponent(IDENTIFICATION_CODE)));
-                log.debug("from = %s".formatted(field.getComponent(REFERENCE_FOR_THE_ACCOUNT_OWNER)));
-                if (i + 1 < loop.size() && loop.getTag(i + 1).getNameAsInt() == 86) {
-                    log.debug("description = %s".formatted(loop.getTag(i + 1).getValue()));
-                    i++;
-                }
-                numProcessed++;
-            }
-        }
-        return numProcessed;
     }
 
     protected static class DefaultValueProvider implements IDefaultValueProvider {
