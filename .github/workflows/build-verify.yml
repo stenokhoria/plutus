@@ -1,4 +1,4 @@
-name: CodeQL
+name: Build
 
 on:
   push:
@@ -7,17 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  analyze:
-    name: Analyze
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
       security-events: write
-
-    strategy:
-      matrix:
-        language: [ 'java' ]
 
     steps:
     - name: Checkout repository
@@ -30,13 +26,5 @@ jobs:
         java-version: 17
         cache: maven
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+    - name: Build with Maven
+      run: ./mvnw --batch-mode verify

@@ -18,7 +18,10 @@ class PlutusCommandQuarkusTest {
   void testRunWithoutArguments(final LaunchResult launchResult) {
     assertEquals(0, launchResult.exitCode());
     assertEquals(1, PLUTUS_LOG.getLogs().size());
-    assertEquals("Processed 18 transactions", PLUTUS_LOG.getInfoLogs().get(0));
+    assertEquals(
+        "Cannot open './src/test/resources/input.940' for reading, does it exist?",
+        PLUTUS_LOG.getErrorLogs().get(0)
+    );
   }
 
 }
