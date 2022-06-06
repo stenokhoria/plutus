@@ -1,20 +1,12 @@
 package nl.denvelop.stenokhoria;
 
-import static com.prowidesoftware.swift.model.field.Field61.AMOUNT;
-import static com.prowidesoftware.swift.model.field.Field61.IDENTIFICATION_CODE;
-import static com.prowidesoftware.swift.model.field.Field61.REFERENCE_FOR_THE_ACCOUNT_OWNER;
-import static com.prowidesoftware.swift.model.field.Field61.TRANSACTION_TYPE;
 import static org.eclipse.microprofile.config.ConfigProvider.getConfig;
 
-import com.prowidesoftware.swift.model.SwiftBlock4;
-import com.prowidesoftware.swift.model.SwiftMessage;
-import com.prowidesoftware.swift.model.field.Field61;
-import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
+import jakarta.xml.bind.JAXBException;
 import java.io.File;
-import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import nl.denvelop.stenokhoria.parser.Mt940Parser;
+import nl.denvelop.stenokhoria.parser.Camt053Parser;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.IDefaultValueProvider;
 import picocli.CommandLine.Model.ArgSpec;
@@ -36,8 +28,13 @@ public class PlutusCommand implements Runnable {
             return;
         }
 
-        val parser = new Mt940Parser(inputFile);
-        val numProcessed = parser.parse();
+        val parser = new Camt053Parser(inputFile);
+        int numProcessed;
+        try {
+            numProcessed = parser.parse();
+        } catch (final JAXBException e) {
+            throw new RuntimeException(e);
+        }
 
         log.info("Processed %d transactions".formatted(numProcessed));
     }

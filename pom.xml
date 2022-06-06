@@ -17,7 +17,10 @@
     <!-- Dependency Versions / Libraries -->
     <logcaptor.version>2.7.10</logcaptor.version>
     <lombok.version>1.18.24</lombok.version>
-    <pw-swift-core.version>SRU2021-9.2.13</pw-swift-core.version>
+    <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
+    <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
+    <jaxb-impl.version>4.0.0</jaxb-impl.version>
+    <camt053.version>1.1.0</camt053.version>
     <quarkus.platform.version>2.9.2.Final</quarkus.platform.version>
     <!-- Dependency Configuration -->
     <failsafe.useModulePath>false</failsafe.useModulePath>
@@ -49,9 +52,25 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.prowidesoftware</groupId>
-      <artifactId>pw-swift-core</artifactId>
-      <version>${pw-swift-core.version}</version>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>${jakarta.activation-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${jakarta.xml.bind-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${jaxb-impl.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.softicar.camt053</groupId>
+      <artifactId>camt053</artifactId>
+      <version>${camt053.version}</version>
     </dependency>
     <!-- Test Dependencies -->
     <dependency>
