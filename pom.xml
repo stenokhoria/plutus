@@ -18,7 +18,7 @@
     <logcaptor.version>2.7.10</logcaptor.version>
     <lombok.version>1.18.24</lombok.version>
     <pw-swift-core.version>SRU2021-9.2.13</pw-swift-core.version>
-    <quarkus.platform.version>2.9.2.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.10.0.Final</quarkus.platform.version>
     <!-- Dependency Configuration -->
     <failsafe.useModulePath>false</failsafe.useModulePath>
   </properties>
