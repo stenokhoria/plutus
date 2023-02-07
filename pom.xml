@@ -16,7 +16,7 @@
     <maven.plugin.surefire.version>3.0.0-M8</maven.plugin.surefire.version>
     <!-- Dependency Versions / Libraries -->
     <logcaptor.version>2.7.10</logcaptor.version>
-    <lombok.version>1.18.24</lombok.version>
+    <lombok.version>1.18.26</lombok.version>
     <pw-swift-core.version>SRU2022-9.3.11</pw-swift-core.version>
     <quarkus.platform.version>2.16.1.Final</quarkus.platform.version>
     <!-- Dependency Configuration -->
