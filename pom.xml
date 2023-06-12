@@ -12,7 +12,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Dependency Versions / Maven -->
     <maven.plugin.compiler.version>3.11.0</maven.plugin.compiler.version>
-    <maven.plugin.failsafe.version>3.0.0-M9</maven.plugin.failsafe.version>
+    <maven.plugin.failsafe.version>3.1.2</maven.plugin.failsafe.version>
     <maven.plugin.surefire.version>3.0.0-M9</maven.plugin.surefire.version>
     <!-- Dependency Versions / Libraries -->
     <logcaptor.version>2.7.10</logcaptor.version>
